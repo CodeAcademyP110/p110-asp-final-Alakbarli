@@ -1,0 +1,147 @@
+﻿
+
+
+@model Turbo.ViewModel.ElanYaratViewModel
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12"><a asp-controller="Post" asp-action="Index" class="btn btn-success">Go to Posts</a></div>
+        <div class="col-lg-10">
+            <img style="width:300px;object-fit:cover;" src="~/images/Cars/@Model.Meqale.Sekil" />
+            <h2>
+                @Model.Meqale.Basliq
+            </h2>
+            <p class="text-nowrap">
+                @Html.Raw(Model.Meqale.Melumat)
+            </p>
+            <span>
+                @Model.Meqale.YazilmaVaxti.ToString("dd MMMM yyyy HH:mm")
+            </span>
+            <p>
+                Yazici:
+                <a>
+                    @Model.Meqale.User.Ad  @Model.Meqale.User.Soyad
+                </a>
+            </p>
+            @if (User.IsInRole("Admin"))
+            {
+                <button data-post="@Model.Meqale.Id" class="btn btn-danger delete">Meqaleni sil</button>
+                <a asp-controller="Meqale" asp-action="edit" asp-route-id="@Model.Meqale.Id" class="btn btn-info">Yenile</a>
+
+
+            }
+
+
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>
+                Reyler
+            </h3>
+        </div>
+        <hr />
+        <div class="col-lg-8">
+            @{
+
+
+                if (!User.Identity.IsAuthenticated)
+                {
+                    <textarea disabled id="commentText" style="width:70%"></textarea>
+                }
+                else
+                {
+                    <textarea id="commentText" style="width:70%"></textarea>
+                }
+
+            }
+        </div>
+        <div class="col-lg-4">
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+                    <a class="writeComment btn btn-success">Write a comment</a>
+                }
+                else
+                {
+                    <a title="Please login or sign to write a comment" asp-controller="Account" asp-action="signin" class=" btn btn-success">Write a comment</a>
+                }
+
+            }
+
+
+
+        </div>
+
+    </div>
+    <hr />
+    <div class="row userComments">
+        @if (@Model.Reyler != null)
+        {
+            @foreach (var comment in Model.Reyler)
+            {
+                <partial name="_CommentPartial" model="@comment" />
+            }
+        }
+    </div>
+</div>
+@section scripts{
+    <script>
+
+        $(".delete").click(function (e) {
+            e.preventDefault();
+            let id = $(this).attr("data-post");
+            let res = true;
+
+            $.ajax({
+                url: "/admin/Meqale/delete/" + id,
+                type: "POST",
+                success: function (res) {
+                    if (res === "false") {
+                        alert("Post is not found");
+                        res = false;
+                        return;
+                    }
+                    res = true;
+                    alert("Post deleted");
+
+
+                }
+
+
+            })
+            if (res) {
+                $(this).parent("div").html("Post Deleted");
+            }
+
+        })
+
+        $(".writeComment").click(function () {
+
+            let text = $("#commentText").val();
+            if (text.trim()) {
+                $.ajax({
+                    url: "/Meqale/WriteComment/" +@Model.Meqale.Id+"/"+ text,
+                    type: "POST",
+                    success: function (res) {
+
+
+                        $(".userComments").append(res);
+                        $("#commentText").val("");
+
+                    }
+                })
+            }
+            else {
+
+                alert("Write comment!!!!");
+            }
+        }
+        )
+    </script>
+}
+
+
+
+
+

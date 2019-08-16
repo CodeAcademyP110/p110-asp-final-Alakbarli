@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Elan>
+<section>
+    <div class="wrapper">
+        <div class="products">
+            @foreach (var item in @Model)
+            {
+
+                <a asp-controller="elan" asp-action="detail" asp-route-id="@item.Id" class="productBorder" style="margin-bottom:60px">
+                    <div class="onliCar">
+                        <i class="far fa-heart likeIcon"></i>
+                        <img src="~/images/Cars/@item.SekilUrl" alt="">
+                        <div class="productPrice">
+                            @item.Qiymet<span>AZN</span>
+                        </div>
+                        <div class="productsInfo">
+                            <p class="carName">@item.Model.Marka.Name @item.Model.Name</p>
+                            <div class="carInfo">
+                                <p class="year">
+                                    @item.IstehsalIli.Il il
+
+                                    <span></span>
+                                </p>
+                                <p class="engin">
+                                    @item.MuherrikHecmi.Hecm L
+                                    <span></span>
+                                </p>
+                                <p class="km">@item.YurusMesafesi km </p>
+                            </div>
+                            <div class="enterDay">
+                                @item.Seher.Name, @item.YazilmaVaxti.ToString("dd MMMM yyyy")
+                                @if (item.Vip)
+                                {<i class="fas fa-gem"></i>}
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </a>
+            }
+
+
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>

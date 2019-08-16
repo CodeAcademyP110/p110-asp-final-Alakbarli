@@ -1,0 +1,267 @@
+﻿
+
+<style>
+
+    .gallery .col-4 img {
+        width: 250px;
+        height: 250px;
+        -o-object-fit: cover;
+        object-fit: cover;
+        margin: 10px;
+    }
+
+    .image-validation {
+        padding: 0px;
+    }
+
+    .passive {
+        display: none;
+    }
+</style>
+
+@model Turbo.ViewModel.ElanYaratViewModel
+<div class="container">
+
+    <div class="row">
+        <div style="margin-bottom:50px" class="col-12">
+
+            <form class="mt-5" method="post" enctype="multipart/form-data">
+                <div class="text-danger" asp-validation-summary="ModelOnly">
+
+                </div>
+                <div style="padding-right:20px" class="col-5">
+                    <input asp-for="Elan.MainImageId" type="hidden" />
+                    <div class="form-group">
+                        <label>Marka</label>
+                        <select id="marka" class="form-control" asp-items="@(new SelectList(ViewBag.Marka, "Id", "Name"))">
+                            <option>Marka secin</option>
+                        </select>
+
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Elan.ModelId">Model</label>
+                        <select class="form-control" asp-for="Elan.ModelId">
+                        </select>
+                        <span asp-validation-for="Elan.ModelId"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Elan.BanNovuId">Ban novu</label>
+                        <select class="form-control" asp-for="Elan.BanNovuId" asp-items="@(new SelectList(Model.BanNovleri, "Id", "Name"))">
+                            <option>Ban novu secin</option>
+                        </select>
+                        <span asp-validation-for="Elan.BanNovuId"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Elan.IstehsalIliId">Istehsal ili</label>
+                        <select class="form-control" asp-for="Elan.IstehsalIliId" asp-items="@(new SelectList(Model.IstehsalIllleri.OrderBy(x=>x.Il), "Id", "Il"))">
+                        </select>
+                        <span asp-validation-for="Elan.IstehsalIliId"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Elan.MuherrikHecmiId">Muherrik hecmi</label>
+                        <select class="form-control" asp-for="Elan.MuherrikHecmiId" asp-items="@(new SelectList(Model.MuherrikHecmleri,"Id","Hecm"))"></select>
+                        <span asp-validation-for="Elan.MuherrikHecmiId"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Elan.Qiymet"></label>
+                        <input asp-for="Elan.Qiymet" class="form-control" placeholder="Qiymet">
+                        <span asp-validation-for="Elan.Qiymet"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Elan.MuherrikGucu">Muhherik gucu(a.g)</label>
+                        <input asp-for="Elan.MuherrikGucu" class="form-control" placeholder="Muhherik gucu(a.g)">
+                        <span asp-validation-for="Elan.MuherrikGucu"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Elan.Vip">Vip elan</label>
+                        <input style="height:15px;width:15px" type="checkbox" asp-for="Elan.Vip">
+
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Elan.SekilFayllari">Sekil elave edin</label>
+                        <input asp-for="Elan.SekilFayllari">
+                        <span asp-validation-for="Elan.SekilFayllari"></span>
+
+                    </div>
+
+
+
+
+
+
+                </div>
+                <div class="col-5" style="padding-left:20px">
+                    <div class="form-group">
+                        <label asp-for="Elan.OturucuId">Oturucu</label>
+                        <select class="form-control" asp-for="Elan.OturucuId" asp-items="@(new SelectList(Model.Oturuculer,"Id","Name"))"></select>
+                        <span asp-validation-for="Elan.OturucuId"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Elan.RengId">Reng</label>
+                        <select class="form-control" asp-for="Elan.RengId" asp-items="@(new SelectList(Model.Rengler,"Id","Name"))"></select>
+                        <span asp-validation-for="Elan.RengId"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Elan.SeherId">Seher</label>
+                        <select class="form-control" asp-for="Elan.SeherId" asp-items="@(new SelectList(Model.Seherler,"Id","Name"))"></select>
+                        <span asp-validation-for="Elan.SeherId"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Elan.SuretQutusuId">Suret qutusu</label>
+                        <select class="form-control" asp-for="Elan.SuretQutusuId" asp-items="@(new SelectList(Model.SuretQutulari,"Id","Name"))"></select>
+                        <span asp-validation-for="Elan.SuretQutusuId"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Elan.YanacaqNovuId">Muherrik hecmi</label>
+                        <select class="form-control" asp-for="Elan.YanacaqNovuId" asp-items="@(new SelectList(Model.YanacaqNovleri,"Id","Name"))"></select>
+                        <span asp-validation-for="Elan.YanacaqNovuId"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Elan.YurusMesafesi"></label>
+                        <input asp-for="Elan.YurusMesafesi" class="form-control" placeholder="Qurus mesafesi">
+                        <span asp-validation-for="Elan.YurusMesafesi"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Elan.Melumat"></label>
+                        <textarea asp-for="Elan.Melumat" class="form-control" placeholder="Masin haqda melumat"></textarea>
+                        <span asp-validation-for="Elan.Melumat"></span>
+                    </div>
+
+                </div>
+
+
+                <div class="col-12">
+                    <div style="margin-top:20px" class="row">
+                        <div class="col-6">
+                            <p class="image-validation alert alert-danger"></p>
+
+                        </div>
+                        <div class="col-12">
+                            <div class="image-gallery gallery row">
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-12"> <button type="submit" class="btn btn-primary">Elan yerlesdir</button></div>
+
+
+
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts{
+
+    <script>
+
+
+        $("#marka").change(function () {
+            let markaId = $(this).val();
+            if (markaId) {
+
+                $.ajax({
+                    url: "/Ajax/LoadModelOption?Id=" + markaId,
+                    type: "POST",
+                    success: function (res) {
+                        $("#Elan_ModelId").html(res);
+                        $("#Elan_ModelId").prepend("<option selected value=''></option>");
+
+
+                    }
+                })
+            }
+        })
+
+
+
+        let imageInput = document.querySelector("#Elan_SekilFayllari");
+        let imageGallery = $(".image-gallery");
+        let imageval = $(".image-validation");
+        let sumimagenumber = 0;
+
+
+        function loader(files) {
+            sumimagenumber = 0;
+            let count = 1;
+            files.forEach(function () {
+                sumimagenumber++;
+
+            })
+            if (sumimagenumber > 5) {
+                imageval.text("En cox 5 eded sekil yuklene biler ;)");
+                $("#Elan_SekilFayllari").val("");
+                return;
+            }
+            files.forEach(
+                function (file) {
+                    console.log("salam2");
+                    if (file.type.match("image/*")) {
+                        let reader = new FileReader;
+
+                        reader.onloadend = function (rd) {
+                            let div = document.createElement("div");
+                            let image = document.createElement("img");
+                            let p = document.createElement("p");
+                            div.classList = ("col-4");
+                            p.innerText = "Esas sekil et";
+                            p.classList = ("btn btn-primary esaset");
+                            p.setAttribute("data-id",count)
+                            count++
+                            image.src = rd.target.result;
+                            div.append(image);
+                            div.append(p);
+                            imageGallery.append(div);
+                            $(".esaset").click(function () {
+                                $(".esaset").removeClass("passive")
+                                $(this).addClass("passive")
+                                $("#Elan_MainImageId").val($(this).attr("data-id"))
+
+                            })
+
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                }
+            )
+
+        }
+        if (imageInput !== null) {
+            imageInput.onchange = function (e) {
+
+                imageval.text("");
+
+                loader([...e.target.files]);
+            };
+        }
+
+
+        $(".esaset").click(function () {
+            $(".esaset").removeClass("passive")
+            $(".sil").removeClass("passive")
+            $(this).addClass("passive")
+            $("#Elan_MainImageId").val($(this).attr("data-id"))
+            
+
+
+        }
+        )
+
+
+
+
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

@@ -1,0 +1,10 @@
+﻿
+@using Turbo.Models
+@model IEnumerable<Model>
+
+@foreach (var x in Model)
+{
+    <option value="@x.Id">
+        @x.Name
+    </option>
+}

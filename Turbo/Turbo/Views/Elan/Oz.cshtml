@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewData["Title"] = "Oz";
+}
+@model Turbo.ViewModel.ElanYaratViewModel
+
+
+
+<h2>Menim Elanlarim</h2>
+
+@{
+    if (TempData["Elan"] != null)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <p class="mt-3 mb-3 alert alert-success">Sizin elan gonderildi .Elaninizin tesdiqlenmeyini gozleyin</p>
+                </div>
+            </div>
+        </div>
+
+    }
+    if (TempData["yenile"] != null)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <p class="mt-3 mb-3 alert alert-success">Sizin elan gyenilendi .Tebrikler</p>
+                </div>
+            </div>
+        </div>
+
+    }
+
+
+
+    if (@Model.Elanlar.Count() > 0)
+    {
+        if (Model.Elanlar.Where(x => x.Register == true).Count() > 1)
+        {
+            <div class="container">
+                <div class="col-12">
+                    <h3>Tesdiqlenmis elanlar</h3>
+                </div>
+
+            </div>
+            <partial name="_MainCarPartial" model="@Model.Elanlar.Where(x=>x.Register==true)" />
+        }
+        else
+        {
+            <div class="container">
+                <div class="col-12">
+                    <h3>Tesdiqlenmemis elanlar</h3>
+                </div>
+
+            </div>
+            <partial name="_MainCarPartial" model="@Model.Elanlar.Where(x=>x.Register==false)" />
+        }
+
+
+    }
+    else
+    {
+        <div class="container">
+            <div class="col-12">
+                <h3>Sizin elaniniz yoxdur</h3>
+            </div>
+
+        </div>
+    }
+}
+
+

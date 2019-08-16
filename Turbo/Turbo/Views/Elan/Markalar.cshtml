@@ -1,0 +1,8 @@
+﻿
+@{
+    ViewData["Title"] = "Markalar";
+}
+@model Turbo.ViewModel.ElanYaratViewModel
+<h2>Markalar @ViewBag.Name</h2>
+
+<partial name="_MainCarPartial" model="@Model.Elanlar.OrderByDescending(x=>x.YazilmaVaxti)"/>

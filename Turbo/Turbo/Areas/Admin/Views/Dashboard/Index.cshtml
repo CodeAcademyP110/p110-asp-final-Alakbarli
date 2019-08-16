@@ -1,0 +1,167 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@{ 
+    if (TempData["data"] != null)
+    {
+        <h3 class="alert alert-success">Yeni data elave olundu</h3>
+    }
+}
+
+@model Turbo.ViewModel.ElanYaratViewModel
+@{
+    int time = DateTime.Now.Hour;
+    if (time < 6)
+    {
+        <h1 class="register"><a>Ged yat @User.Identity.Name</a></h1>
+
+    }
+    else if (time < 12)
+    {
+        <h1 class="register"><a>Sabahin xeyir @User.Identity.Name</a></h1>
+
+    }
+    else if (time < 18)
+    {
+        <h1 class="register"><a>Gunortan Xeyir @User.Identity.Name</a></h1>
+
+    }
+    else if (time <= 23)
+    {
+        <h1 class="register"><a>Axsamin xeyir @User.Identity.Name</a></h1>
+
+    }
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-10">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Marka adi</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @{
+                        int count = 0;
+                        foreach (var x in Model.Markalar.OrderBy(x=>x.Name))
+                        {
+                            count++;
+                            <tr>
+                                <th scope="row">@count</th>
+                                <td>@x.Name</td>
+
+                            </tr>
+
+                        }
+                    }
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+        <hr />
+        <div class="col-10">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Model adi</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @{
+                        int count1 = 0;
+                        foreach (var x in Model.Modeller.OrderBy(x=>x.Name))
+                        {
+                            count1++;
+                            <tr>
+                                <th scope="row">@count1</th>
+                                <td>@x.Name</td>
+
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+        <hr />
+        <div class="col-10">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Seher adi</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @{
+                        int count2 = 0;
+                        foreach (var x in Model.Seherler.OrderBy(x=>x.Name))
+                        {
+                            count2++;
+                            <tr>
+                                <th scope="row">@count2</th>
+                                <td>@x.Name</td>
+
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+        <hr />
+        <div class="col-10">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Reng adi</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @{
+                        int count3 = 0;
+                        foreach (var x in Model.Rengler.OrderBy(x=>x.Name))
+                        {
+                            count3++;
+                            <tr>
+                                <th scope="row">@count3</th>
+                                <td>@x.Name</td>
+
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
+

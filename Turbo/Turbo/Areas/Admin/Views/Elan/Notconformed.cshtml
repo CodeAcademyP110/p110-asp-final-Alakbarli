@@ -1,0 +1,16 @@
+﻿@model Turbo.ViewModel.ElanYaratViewModel
+
+
+<h4 class="alert alert-danger">Tesdiqlenmemis elanlar</h4>
+@if (TempData["NotFoundCar"] != null)
+{
+    <h4 class="alert alert-danger">Secdiyiniz elan tapilmadi</h4>
+}
+@if (TempData["DoConformed"] != null)
+{
+    <h4 class="alert alert-success">Elan tesdiqlendi</h4>
+}
+<partial name="_MainCarPartial" model="@Model.Elanlar" />
+
+
+

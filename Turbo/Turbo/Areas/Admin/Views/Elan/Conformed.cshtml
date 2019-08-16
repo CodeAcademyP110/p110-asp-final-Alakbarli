@@ -1,0 +1,9 @@
+﻿
+<h4 class="alert alert-success">Tesdiqlenmis elanlar</h4>
+@if (TempData["Deleted"] != null)
+{
+    <h4 class="alert alert-danger">Secdiyiniz elan Silindi</h4>
+}
+
+<partial name="_MainCarPartial" model="@Model.Elanlar" />
+

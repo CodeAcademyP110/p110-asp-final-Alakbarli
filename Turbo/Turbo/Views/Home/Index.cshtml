@@ -1,0 +1,141 @@
+﻿ @model Turbo.ViewModel.ElanYaratViewModel
+<section>
+    <div class="wrapper">
+        @{
+            if (TempData["Elan"] != null)
+            {
+                <p class="mt-3 mb-3 alert alert-success">Sizin elan gonderildi .Elaninizin tesdiqlenmeyini gozleyin</p>
+            }
+            if (TempData["Deleted"] != null)
+            {
+                <p class="mt-3 mb-3 alert alert-success">Elaniniz silinmisdir)</p>
+            }
+            if (TempData["Suluq"] != null)
+            {
+                <p class="mt-3 mb-3 alert alert-success">Suluqluq eleme)</p>
+            }
+        }
+        
+        
+        <div class="clear"></div>
+    </div>
+</section>
+<div class="container">
+    <div class="col-12">
+        <a style="font-size:20px" asp-controller="Elan" asp-action="oz" class="btn btn-link">Menim elanlarim</a>
+    </div>
+
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            @{
+               
+                if (TempData["Deleted"] != null)
+                {
+                    <p class="mt-3 mb-3 alert alert-success">Elaniniz silinmisdir)</p>
+                }
+                if (TempData["Suluq"] != null)
+                {
+                    <p class="mt-3 mb-3 alert alert-success">Suluqluq eleme)</p>
+                }
+            }
+
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h3>
+                Son meqaleler
+            </h3>
+        </div>
+    </div>
+</div>
+
+<partial name="_MeqalePartial" model="@Model.Meqaleler.Take(4)" />
+<!--Vip elanlarTitle-->
+<section>
+    <div class="wrapper">
+        <div class="vipAll vipAdvertise">
+            <p class="vipElanlar">VIP ELANLAR</p>
+            <a asp-controller="Elan" asp-action="all" asp-route-id="1">Butun VIP elanlar</a>
+            <b class="logoText">Bütün bank xidmətləri telefonunda</b>
+            <img src="https://newmedia.az/iqbal/9/4/sag/logo2.png">
+
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+
+<!--Products-->
+<partial name="_MainCarPartial" model="@Model.Elanlar.Where(x=>x.Vip==true).Take(12).OrderByDescending(x=>x.Id)" />
+<section>
+    <div class="wrapper">
+        <div class="vipAll vipAdvertise">
+            <p class="vipElanlar">Adi Elanlar</p>
+            <a asp-controller="Elan" asp-action="all" asp-route-id="2">Butun adi elanlar</a>
+            <b class="logoText">Bütün bank xidmətləri telefonunda</b>
+            <img src="https://newmedia.az/iqbal/9/4/sag/logo2.png">
+
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+
+
+<partial name="_MainCarPartial" model="@Model.Elanlar.Where(x=>x.Vip==false).Take(12).OrderByDescending(x=>x.Id)" />
+
+
+<!--Son elanlar-->
+
+
+
+<section>
+    <div class="wrapper">
+        <div class="vipAll vipAdvertise">
+            <p class="vipElanlar">SON ELANLAR</p>
+            <a class="allShow" asp-controller="Elan" asp-action="all">Hamsini goster</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+<partial name="_MainCarPartial" model="@Model.Elanlar.OrderByDescending(x=>x.Id).Take(12)" />
+
+
+
+<div style="margin-bottom:100px" class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-12"><h2 style="color:darkslategray">Butun markalar</h2></div>
+            @{
+                int MarkaBol = ((Model.Markalar.Count()) / 4);
+                if (MarkaBol == 0) { MarkaBol = 1; }
+                MarkaBol++;
+
+                @for (int i = 0; i < 4; i++)
+                {
+                    <div class="col-3">
+                        @foreach (var item in Model.Markalar.OrderBy(x=>x.Name).Skip(i*MarkaBol).Take(MarkaBol))
+                        {
+                        <h5>@item.Name:<a asp-controller="Elan" asp-action="Markalar" asp-route-id="@item.Id">(@Model.Elanlar.Where(x => x.Model.MarkaId == item.Id).Count())</a></h5> 
+                        }
+                    </div>
+
+                }
+
+
+            }
+
+
+
+
+        </div>
+    </div>
+</div>
+

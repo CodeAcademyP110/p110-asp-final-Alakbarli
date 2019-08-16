@@ -1,0 +1,84 @@
+﻿
+@model Turbo.Models.Elan
+@{
+    ViewData["Title"] = "Detail";
+}
+@if (TempData["DoConformed"] != null)
+{
+    <h4 class="alert alert-success">Elan tesdiqlendi</h4>
+}
+<div class="wrapper">
+    <div class="row">
+        <div class="col-12">
+            <h4>Sekiller</h4>
+            <img style="object-fit:cover;height:400px" src="~/images/Cars/@Model.SekilUrl" />
+
+        </div>
+
+    </div>
+    <div class="row">
+        @foreach (var sekil in Model.Sekiller)
+        {
+            <div class="col-4">
+                <a style="padding:20px; width:100%;margin-top:50px;margin-bottom:50px;display:inline-block" target="_blank" href="~/images/Cars/@sekil.Name">
+                    <img style="object-fit:cover;height:200px;width:100%" src="~/images/Cars/@sekil.Name" />
+                </a>
+            </div>
+        }
+    </div>
+    <div class="row">
+        <style>
+            .detal p {
+                padding: 0px
+            }
+        </style>
+        <div class="col-12">
+            <h2 style="padding-bottom:40px">@Model.Model.Marka.Name @Model.Model.Name</h2>
+        </div>
+        <div class="col-6 detal">
+
+            <p><b>Seher</b>:@Model.Seher.Name</p>
+            <p><b>Marka</b>:<a asp-controller="elan" asp-action="Markalar" asp-route-id="@Model.Model.Marka.Id">@Model.Model.Marka.Name</a> </p>
+            <p><b>Model</b>:<a asp-controller="elan" asp-action="Modeller" asp-route-id="@Model.Model.Id">@Model.Model.Name</a></p>
+            <p><b>Ban novu</b>:@Model.BanNovu.Name</p>
+            <p><b>Istehsa ili</b>:@Model.IstehsalIli.Il</p>
+            <p><b>Muherrik hecmi</b>:@Model.MuherrikHecmi.Hecm</p>
+            <p><b>Oturucu</b>:@Model.Oturucu.Name</p>
+            <p><b>Rengi</b>:@Model.Reng.Name</p>
+            <p><b>Suret qutusu</b>:@Model.SuretQutusu.Name</p>
+
+        </div>
+        <div class="col-6 detal">
+            <p><b>Yanacaq novu</b>:@Model.YanacaqNovu.Name</p>
+            <p><b>Yurus mesafesi</b>:@Model.YurusMesafesi km</p>
+            <p><b>Yazilma vaxti</b>:@Model.YazilmaVaxti.ToString("dd MMMM yyyy")</p>
+            <p><b>Qiymet</b>:@Model.Qiymet manat</p>
+            <p><b>Muherrik gucu</b>:@Model.MuherrikGucu a.g</p>
+
+            <p><b>Elaqe</b></p>
+            <p><i>Telofon</i>:@Model.User.PhoneNumber</p>
+            <p><i>Email</i>:<a href="https://@Model.User.Email">@Model.User.Email</a></p>
+        </div>
+        <div class="col-12">
+            <p><b>Melumat</b>:@Model.Melumat</p>
+        </div>
+        <div class="col-12">
+            @if (Model.Register == false)
+            {
+                <a class="btn btn-success" asp-controller="elan" asp-action="doconform" asp-route-id="@Model.Id">Elani tesdiqle</a>
+            }
+            @if (User.Identity.Name == Model.User.UserName)
+            {
+                <a class="btn btn-warning" asp-controller="elan" asp-action="edit" asp-route-id="@Model.Id">Elani yenile</a>
+            }
+            @if (User.Identity.Name == Model.User.UserName)
+            {
+                <a class="btn btn-danger" asp-controller="elan" asp-action="delete" asp-route-id="@Model.Id">Elani sil</a>
+            }
+
+
+        </div>
+    </div>
+
+</div>
+

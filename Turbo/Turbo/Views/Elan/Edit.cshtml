@@ -1,0 +1,279 @@
+﻿
+
+
+
+<style>
+
+    .gallery .col-4 img {
+        width: 250px;
+        height: 250px;
+        -o-object-fit: cover;
+        object-fit: cover;
+        margin: 10px;
+        
+    }
+
+    .image-validation {
+        padding: 0px;
+    }
+
+    .passive {
+        display: none;
+    }
+</style>
+
+@model Turbo.ViewModel.ElanYaratViewModel
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h4>Esas sekil</h4>
+            <img style="object-fit:cover;height:400px" src="~/images/Cars/@Model.Elan.SekilUrl" />
+        </div>
+
+    </div>
+    <div class="row">
+        @foreach (var sekil in Model.Elan.Sekiller)
+        {
+            <div style="padding:20px;margin-top:50px;margin-bottom:50px; " class="col-4">
+                <a style="width:100%;display:inline-block" target="_blank" href="~/images/Cars/@sekil.Name">
+                    <img style="object-fit:cover;height:200px;width:100%" src="~/images/Cars/@sekil.Name" />
+                </a>
+                <p data-id="@sekil.Id" class="btn btn-danger sil">Sil</p>
+                <p data-id="@sekil.Id" class="btn btn-primary esaset yuklu-esas">Esas sekil et</p>
+            </div>
+         }
+    </div>
+    <div class="row">
+        <div style="margin-bottom:50px" class="col-12">
+
+            <form class="mt-5" method="post" enctype="multipart/form-data">
+                <div class="text-danger" asp-validation-summary="ModelOnly">
+
+                </div>
+                <div style="padding-right:20px" class="col-5">
+
+                    <input asp-for="@Model.Edit.Id" value="@Model.Elan.Id" type="hidden" />
+                    <input asp-for="@Model.Edit.DeleteInput" value="" type="hidden" />
+                    <input asp-for="@Model.Edit.mainImageId" type="hidden" />
+                    <div class="form-group">
+                        <label asp-for="Edit.MuherrikHecmiId">Muherrik hecmi</label>
+                        <select class="form-control" asp-for="Edit.MuherrikHecmiId" asp-items="@(new SelectList(Model.MuherrikHecmleri,"Id","Hecm",Model.Elan.MuherrikHecmiId))"></select>
+                        <span asp-validation-for="Edit.MuherrikHecmiId"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Edit.Qiymet"></label>
+                        <input asp-for="Edit.Qiymet" class="form-control" placeholder="Qiymet" value="@Model.Elan.Qiymet">
+                        <span asp-validation-for="Edit.Qiymet"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Edit.MuherrikGucu">Muhherik gucu(a.g)</label>
+                        <input asp-for="Edit.MuherrikGucu" class="form-control" placeholder="Muhherik gucu(a.g)" value="@Model.Elan.MuherrikGucu">
+                        <span asp-validation-for="Edit.MuherrikGucu"></span>
+                    </div>
+                    @if (!Model.Elan.Vip)
+                    {
+                        <div class="form-group">
+                            <label asp-for="Edit.Vip">Vip elan</label>
+                            <input style="height:15px;width:15px" type="checkbox" asp-for="Edit.Vip">
+
+                        </div>
+                    }
+
+
+                    <div class="form-group">
+                        <label asp-for="Edit.YurusMesafesi"></label>
+                        <input asp-for="Edit.YurusMesafesi" class="form-control" placeholder="Qurus mesafesi" value="@Model.Elan.YurusMesafesi">
+                        <span asp-validation-for="Edit.YurusMesafesi"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Edit.SekilFayllari">Sekil elave edin</label>
+                        <input asp-for="Edit.SekilFayllari">
+                        <span asp-validation-for="Edit.SekilFayllari"></span>
+
+                    </div>
+
+
+
+
+
+                </div>
+                <div class="col-5" style="padding-left:20px">
+                    <div class="form-group">
+                        <label asp-for="Edit.OturucuId">Oturucu</label>
+                        <select class="form-control" asp-for="Edit.OturucuId" asp-items="@(new SelectList(Model.Oturuculer,"Id","Name",Model.Elan.OturucuId))"></select>
+                        <span asp-validation-for="Edit.OturucuId"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Edit.RengId">Reng</label>
+                        <select class="form-control" asp-for="Edit.RengId" asp-items="@(new SelectList(Model.Rengler,"Id","Name",Model.Elan.RengId))"></select>
+                        <span asp-validation-for="Edit.RengId"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Edit.SeherId">Seher</label>
+                        <select class="form-control" asp-for="Edit.SeherId" asp-items="@(new SelectList(Model.Seherler,"Id","Name",Model.Elan.SeherId))"></select>
+                        <span asp-validation-for="Edit.SeherId"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Edit.SuretQutusuId">Suret qutusu</label>
+                        <select class="form-control" asp-for="Edit.SuretQutusuId" asp-items="@(new SelectList(Model.SuretQutulari,"Id","Name",Model.Elan.SuretQutusuId))"></select>
+                        <span asp-validation-for="Edit.SuretQutusuId"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Edit.YanacaqNovuId">Muherrik hecmi</label>
+                        <select class="form-control" asp-for="Edit.YanacaqNovuId" asp-items="@(new SelectList(Model.YanacaqNovleri,"Id","Name",Model.Elan.YanacaqNovuId))"></select>
+                        <span asp-validation-for="Edit.YanacaqNovuId"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Edit.Melumat"></label>
+                        <textarea asp-for="Edit.Melumat" class="form-control" placeholder="Masin haqda melumat"></textarea>
+                        <span asp-validation-for="Edit.Melumat"></span>
+                    </div>
+
+
+
+                </div>
+
+                <div class="col-12">
+                    <div style="margin-top:20px" class="row">
+                        <div class="col-6">
+                            <p class="image-validation alert alert-danger"></p>
+                           
+                        </div>
+                        <div class="col-12">
+                            <div class="image-gallery gallery row">
+
+
+                            </div>
+                        </div>
+                       
+                    </div>
+
+                </div>
+
+
+                <div class="col-12"> <button type="submit" class="btn btn-primary">Elani yenile</button></div>
+
+
+
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts{
+
+    <script>
+
+        $(".sil").click(function () {
+            let deletInp = $("#Edit_DeleteInput")
+            let stt = deletInp.val()
+            stt += "," + $(this).attr("data-id")
+            deletInp.val(stt)
+            $(this).parent().remove();
+
+        }
+        )
+        $(".esaset").click(function () {
+            $(".esaset").removeClass("passive")
+            $(".sil").removeClass("passive")
+            $(this).addClass("passive")
+            $(this).prev().addClass("passive")
+            $("#Edit_mainImageId").val($(this).attr("data-id"))
+            
+
+
+        }
+        )
+
+
+
+
+
+        "use strict";
+
+        let imageInputEd = document.querySelector("#Edit_SekilFayllari");
+        let imageGalleryEd = $(".image-gallery");
+        let imagevalEd = $(".image-validation");
+
+
+
+        function loaderEd(files) {
+            let sumimagenumberEd = 0;
+            let limit = 5 - $(".yuklu-esas").length;
+            let count = 1;
+            sumimagenumber = 0;
+            files.forEach(function () {
+                sumimagenumberEd++;
+
+            })
+
+
+            if (sumimagenumberEd > limit) {
+                imagevalEd.text(`En cox eded ${limit} sekil yuklene biler ;)'`);
+                imageGalleryEd.children().remove()
+                $("#Edit_SekilFayllari").val("");
+                return;
+            }
+            imageGalleryEd.children().remove()
+            files.forEach(
+                function (file) {
+                    if (file.type.match("image/*")) {
+                        let reader = new FileReader;
+
+                        reader.onloadend = function (rd) {
+
+                            let image = document.createElement("img");
+                            let p = document.createElement("p");
+                            let p1 = document.createElement("p");
+                            let div = document.createElement("div");
+                            p.innerText = "Esas sekil et";
+                            p.classList = ("btn btn-primary esaset");
+                            div.classList = ("col-4");
+                            p.setAttribute("data-id", "p" + count)
+                            count++
+                            image.src = rd.target.result;
+                            div.append(image);
+                            div.append(p1);
+                            div.append(p);
+                            imageGalleryEd.append(div);
+                            $(".esaset").click(function () {
+                                $(".esaset").removeClass("passive")
+                                $(".sil").removeClass("passive")
+                                $(this).addClass("passive")
+                                $(this).prev().addClass("passive")
+                                 $("#Edit_mainImageId").val($(this).attr("data-id"))
+                                
+                            }
+                            )
+
+
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                }
+            )
+
+        }
+        if (imageInputEd !== null) {
+            imageInputEd.onchange = function (e) {
+
+                imagevalEd.text("");
+
+                loaderEd([...e.target.files]);
+            };
+        }
+
+
+
+
+
+
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

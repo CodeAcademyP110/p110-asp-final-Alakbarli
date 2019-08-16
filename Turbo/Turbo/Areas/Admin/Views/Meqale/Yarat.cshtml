@@ -1,0 +1,105 @@
+﻿
+@model Turbo.Models.Meqale
+@{
+    ViewData["Title"] = "Yarat";
+}
+    
+<style>
+    .meqale-sekli img{
+        width:80%;
+        object-fit:cover;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h3>
+                Meqale yarat
+            </h3>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form enctype="multipart/form-data" method="post">
+                <div class="text-danger" asp-validation-summary="ModelOnly">
+
+                </div>
+                <div class="col-8">
+                    <div class="form-group">
+                        <label asp-for="Basliq"></label>
+                        <input asp-for="Basliq" class="form-control" placeholder="Heading">
+                        <span asp-validation-for="Basliq"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Melumat"></label>
+                        <textarea class="my-big-area" asp-for="Melumat">
+        </textarea>
+                        <span asp-validation-for="Melumat"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="file">Vip elan</label>
+                        <input asp-for="file">
+                        <span asp-validation-for="file"></span>
+
+                    </div>
+
+                </div>
+                <div class="col-8 meqale-sekli">
+                    
+                    
+
+                </div>
+                <div class="col-12"><input class="btn btn-primary" type="submit" value="Create" /></div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts{
+
+    <script>
+         let imageInput = document.querySelector("#file");
+        let imageGallerym = $(".meqale-sekli");
+        
+        function loader(files) {
+            
+            files.forEach(
+                function (file) {
+                   if (file.type.match("image/*")) {
+                        let reader = new FileReader;
+                       reader.onloadend = function (rd) {
+                            let image = document.createElement("img");
+                           image.src = rd.target.result;
+                          
+                          imageGallerym.append(image);
+                           
+                            
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                }
+            )
+
+        }
+        if (imageInput !== null) {
+            imageInput.onchange = function (e) {
+
+
+                
+                loader([...e.target.files]);
+            };
+        }
+
+        
+    </script>
+
+    <partial name="_ValidationScriptsPartial" />
+}
+

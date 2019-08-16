@@ -1,0 +1,23 @@
+﻿@{
+    if (TempData["NotFoundCar"] != null)
+    {
+        <h3 class="alert alert-danger">Elan tapilmadi</h3>
+    }
+}
+@model Turbo.ViewModel.ElanYaratViewModel
+<partial name="_ElanDetailPartial" model="@Model.Elan" />
+
+
+@{
+    if (@Model.Elanlar.Where(x => x.Id != Model.Elan.Id).Count() > 1)
+    {
+        <h3>Diger @Model.Elan.Model.Name modeline aid elanlar</h3>
+        <partial name="_MainCarPartial" model="@Model.Elanlar.Where(x=>x.Id!=Model.Elan.Id).OrderByDescending(x=>x.YazilmaVaxti).Take(8)" />
+    }
+    else
+    {
+        <h3>@Model.Elan.Model.Name modeline aid basqa elan yoxdur</h3>
+    }
+}
+
+
