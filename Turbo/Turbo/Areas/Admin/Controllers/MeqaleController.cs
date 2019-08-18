@@ -141,28 +141,7 @@ namespace Turbo.Areas.Admin.Controllers
             };
             return View(vm);
         }
-        [HttpPost]
-       // [Route("[controller]/[action]/{id}/{text}")]
-        [Authorize(Roles =AdminRole)]
-        public async Task<IActionResult> WriteComment(int Id, string text)
-        {
-            if (string.IsNullOrEmpty(text.Trim()))
-            {
-                return Content("false");
-            }
-            User user = await userManager.FindByNameAsync(User.Identity.Name);
-            Rey comment = new Rey
-            {
-                MeqaleId = Id,
-                dateTime = DateTime.Now,
-                Text = text,
-                UserId = user.Id
-
-            };
-            db.Reyler.Add(comment);
-            await db.SaveChangesAsync();
-            comment.User = user;
-            return PartialView("_CommentPartial", comment);
-        }
+       
+        
     }
 }
