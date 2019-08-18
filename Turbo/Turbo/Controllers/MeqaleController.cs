@@ -57,7 +57,7 @@ namespace Turbo.Controllers
         
         [Route("[controller]/[action]/{id}/{text}")]
         [Authorize]
-        public async Task<IActionResult> WriteCommentt(int id, string text)
+        public async Task<IActionResult> WriteComment(int id, string text)
         {
             
            if (string.IsNullOrEmpty(text.Trim()))
